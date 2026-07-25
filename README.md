@@ -48,7 +48,20 @@ Install the Readline configuration:
 Install the Git configuration:
 
 ```bash
-~/dotfiles/git/install.sh "Your Name" "your.email@example.com"
+~/dotfiles/git/install.sh
+```
+
+The installer:
+
+- Backs up your existing `~/.gitconfig` to `~/.gitconfig.backup` (if present).
+- Installs the repository's `.gitconfig`.
+- Preserves your existing global Git `user.name` and `user.email`.
+
+If you have not configured your Git identity yet, run:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
 ```
 
 ## Components
