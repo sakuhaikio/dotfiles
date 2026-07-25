@@ -1,0 +1,13 @@
+[user]
+	email = john.doe@example.com
+	name = John Doe
+
+[core]
+    editor = vim
+
+[init]
+    defaultBranch = main
+
+[alias]
+    st = status
+    bf = "!git switch $(git branch --format=\"%(refname:short)\" | fzf)"
