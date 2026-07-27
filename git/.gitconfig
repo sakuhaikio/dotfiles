@@ -11,3 +11,5 @@
 [alias]
     st = status
     bf = "!git switch $(git branch --format=\"%(refname:short)\" | fzf)"
+    tree = log --oneline --graph --decorate --all
+    b = branch

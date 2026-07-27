@@ -19,7 +19,7 @@
 
 vimf() {
     local file
-    file=$($FIND "$@" | fzf) || return
+    file=$($FIND --type f --hidden --exclude build --exclude .git "$@" | fzf) || return
     vim "$file"
 }
 

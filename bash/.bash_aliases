@@ -1,4 +1,4 @@
-alias work='cd ~/projects'
+alias projects='cd ~/projects'
 alias home='cd ~'
 alias winhome='cd $WINHOME'
 
