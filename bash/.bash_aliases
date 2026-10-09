@@ -1,4 +1,6 @@
 alias projects='cd ~/projects'
+alias p='cd ~/projects'
+alias pf='p && cdf'
 alias home='cd ~'
 alias winhome='cd $WINHOME'
 
@@ -12,6 +14,8 @@ alias inputrc='vim ~/.inputrc'
 alias bashplugins='vim ~/.bash_plugins'
 
 alias gs='git status'
+alias python='python3'
+alias py='python3'
 
 alias fd='fdfind'
 alias opencode='opencode-cli'

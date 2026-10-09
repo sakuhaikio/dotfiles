@@ -1,3 +1,9 @@
+# Completion settings
 set completion-ignore-case on
 set show-all-if-ambiguous on
+
+# Disable terminal bell
 set bell-style none
+
+# Navigate to parent directory with Alt + Backspace
+"\e\C-?": "cd ..\C-m"

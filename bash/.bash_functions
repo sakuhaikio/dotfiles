@@ -7,6 +7,11 @@
 # Vim
 # =============================================================================
 
+vimf() {
+    local file
+    file=$($FIND --type f --hidden --exclude build --exclude .git "$@" | fzf) || return
+    vim "$file"
+}
 
 # =============================================================================
 # Git
@@ -17,14 +22,12 @@
 # Search
 # ============================================================================
 
-vimf() {
-    local file
-    file=$($FIND --type f --hidden --exclude build --exclude .git "$@" | fzf) || return
-    vim "$file"
+fdf() {
+    ($FIND --type f "$@" | fzf) || return
 }
 
 cdf() {
     local dir
-    dir=$($FIND --type d | fzf) || return
+    dir=$($FIND --type d "$@" | fzf) || return
     cd "$dir"
 }
