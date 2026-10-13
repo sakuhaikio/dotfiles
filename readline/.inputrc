@@ -7,3 +7,8 @@ set bell-style none
 
 # Navigate to parent directory with Alt + Backspace
 "\e\C-?": "cd ..\C-m"
+
+# Uncomment only when not using Windows Terminal.
+# On Windows, configure the shortcut in Windows Terminal's settings.json instead.
+# Execute the previously saved run command (Alt+R).
+# "\er": "run\C-m"
