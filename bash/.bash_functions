@@ -2,6 +2,12 @@
 # Navigation
 # =============================================================================
 
+cdf() {
+    local dir
+    dir=$($FIND --type d "$@" | fzf) || return
+    cd "$dir"
+}
+
 
 # =============================================================================
 # Vim
@@ -14,43 +20,34 @@ vimf() {
 }
 
 # =============================================================================
-# Git
-# =============================================================================
-
-
-# =============================================================================
 # Search
-# ============================================================================
+# =============================================================================
 
 fdf() {
     ($FIND --type f "$@" | fzf) || return
 }
 
-cdf() {
-    local dir
-    dir=$($FIND --type d "$@" | fzf) || return
-    cd "$dir"
-}
+# =============================================================================
+# Build & Run
+# =============================================================================
 
+# Execute and save project-specific commands.
+# Use 'run --help' for usage information.
+RUN_HELP=$(cat <<'EOF'
+Usage: run [OPTION] [COMMAND...]
 
-# Run and save a command separately for each project.
-#
-# Projects are identified by their Git root directory.
-# Outside Git repositories, the current directory is used.
-# Commands are stored in ~/.local/state/run/.
-#
-# Usage:
-#   run <command>       Execute and save a project-specific command.
-#   run                 Execute the previously saved command.
-#   run --show          Display the saved command.
-#   run --clear         Delete the saved command.
-#
-# Examples (Note: chained commands must use bash -c with quotes):
-#   run cmake --build build
-#   run bash -c 'cmake --build build && ./build/TermRush.exe'
-#   run --show
-#   run --clear
-#   run
+Execute and save a project-specific command.
+
+Commands are saved separately for each Git repository.
+Outside Git repositories, the current directory is used.
+
+Options:
+  -h, --help     Show this help message
+  --show         Show the saved command
+  --clear        Remove the saved command
+  -e, --edit     Edit or create the saved command
+EOF
+)
 
 run() {
     local project file id
@@ -83,14 +80,38 @@ run() {
             rm -- "$file"
             return
             ;;
+
+        -h|--help)
+            printf '%s\n' "$RUN_HELP"
+            return 0
+            ;;
+
+        -e|--edit)
+            mkdir -p "$storage" || return 1
+
+            vim "$file"
+            local status=$?
+
+            if [[ -f "$file" && ! -s "$file" ]]; then
+                rm -- "$file" || return 1
+            fi
+
+            return "$status"
+            ;;
     esac
 
     if (( $# > 0 )); then
         mkdir -p "$storage" || return 1
-        {
-            printf '%q ' "$@"
-            printf '\n'
-        } > "$file" || return 1
+
+        if (( $# == 1 )); then
+            printf '%s\n' "$1" > "$file" || return 1
+        else
+            {
+                printf '%q ' "$@"
+                printf '\n'
+            } > "$file" || return 1
+        fi
+
     elif [[ ! -s "$file" ]]; then
         echo "run: no saved command for $project" >&2
         return 1

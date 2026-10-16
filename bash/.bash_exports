@@ -4,6 +4,7 @@
 
 export CMAKE_GENERATOR=Ninja
 export FIND='fdfind'
+export LESS="-FRXQ"
 
 # =============================================================================
 # Editors
