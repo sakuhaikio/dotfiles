@@ -4,60 +4,75 @@ Personal Bash, Git and Readline configuration for Linux and WSL.
 
 ## Features
 
-* Modular Bash configuration
-* Custom aliases
-* Custom shell functions
-* Environment variables
-* fzf integration
-* Readline configuration
-* Git configuration
+- Modular Bash configuration
+- Custom aliases and shell functions
+- Environment variables
+- fzf integration
+- Readline configuration
+- Git configuration
+- Automated `.bashrc` setup
+- WSL integration
 
 ## Repository Structure
 
 ```text
 dotfiles/
+├── README.md
 ├── bash/
-│   ├── .bash_aliases
-│   ├── .bash_exports
-│   ├── .bash_functions
-│   ├── .bash_plugins
 │   └── install.sh
 ├── git/
-│   ├── .gitconfig
 │   └── install.sh
 ├── readline/
-│   ├── .inputrc
 │   └── install.sh
-└── README.md
+└── setup_bashrc.sh
 ```
 
+Configuration files beginning with `.` are hidden and may not appear in directory listings by default.
+
 ## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url> ~/dotfiles
+cd ~/dotfiles
+```
+
+### Bash
 
 Install the Bash configuration:
 
 ```bash
-~/dotfiles/bash/install.sh
+./bash/install.sh
 ```
+
+Configure `.bashrc`:
+
+```bash
+./setup_bashrc.sh
+```
+
+The setup script adds the necessary source statements to `.bashrc` if they are not already present.
+
+It also configures Windows Terminal integration when running under WSL.
+
+### Readline
 
 Install the Readline configuration:
 
 ```bash
-~/dotfiles/readline/install.sh
+./readline/install.sh
 ```
+
+### Git
 
 Install the Git configuration:
 
 ```bash
-~/dotfiles/git/install.sh
+./git/install.sh
 ```
 
-The installer:
-
-- Backs up your existing `~/.gitconfig` to `~/.gitconfig.backup` (if present).
-- Installs the repository's `.gitconfig`.
-- Preserves your existing global Git `user.name` and `user.email`.
-
-If you have not configured your Git identity yet, run:
+If your Git identity is not configured, set it using:
 
 ```bash
 git config --global user.name "Your Name"
@@ -68,20 +83,26 @@ git config --global user.email "your.email@example.com"
 
 ### Bash
 
-Installs symbolic links for:
+The Bash configuration is organized into separate files:
 
-* `.bash_aliases`
-* `.bash_exports`
-* `.bash_functions`
-* `.bash_plugins`
+- `.bash_aliases` — Custom command aliases
+- `.bash_exports` — Environment variables
+- `.bash_functions` — Custom shell functions
+- `.bash_plugins` — Shell plugins and integrations
+
+The `setup_bashrc.sh` script ensures that the custom configuration files are loaded by Bash.
 
 ### Readline
 
-Installs a symbolic link for `.inputrc`, providing custom GNU Readline settings for Bash and other compatible command-line applications.
+Provides custom GNU Readline settings for Bash and other compatible command-line applications.
 
 ### Git
 
-Copies `.gitconfig` to the home directory and configures the Git user name and email supplied as arguments.
+Provides a custom global Git configuration.
+
+### WSL Integration
+
+When running under WSL, the Bash setup configures terminal integration to communicate the current working directory to Windows Terminal.
 
 ## License
 
