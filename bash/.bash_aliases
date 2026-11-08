@@ -23,3 +23,5 @@ alias winexpl='explorer.exe .'
 
 alias cls='clear'
 alias reload='source ~/.bashrc'
+
+alias t='tmux new -As'

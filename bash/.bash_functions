@@ -122,3 +122,28 @@ run() {
         bash "$file"
     )
 }
+
+twf() {
+    tmux display-popup -E -w 100% -h 35% -y 100% \
+      "tmux list-windows -F '#{window_index}: #{window_name}' |
+       fzf --layout=default |
+       cut -d: -f1 |
+       xargs -r tmux select-window -t"
+}
+
+tsf() {
+    if [[ -n "$TMUX" ]]; then
+        tmux display-popup -E -w 100% -h 35% -y 100% \
+            "tmux list-sessions -F '#{session_name}' |
+             fzf --layout=default --border=none --info=inline |
+             xargs -r tmux switch-client -t"
+    else
+        local session
+
+        session=$(tmux list-sessions -F '#{session_name}' |
+                  fzf --layout=default) || return
+
+        [[ -n "$session" ]] &&
+            tmux attach-session -t "$session"
+    fi
+}
