@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal Bash, Git and Readline configuration for Linux and WSL.
+Personal Bash, Git, Readline and tmux configuration for Linux and WSL.
 
 ## Features
 
@@ -10,6 +10,7 @@ Personal Bash, Git and Readline configuration for Linux and WSL.
 - fzf integration
 - Readline configuration
 - Git configuration
+- tmux configuration and custom keybindings
 - Automated `.bashrc` setup
 - WSL integration
 
@@ -23,6 +24,8 @@ dotfiles/
 ├── git/
 │   └── install.sh
 ├── readline/
+│   └── install.sh
+├── tmux/
 │   └── install.sh
 └── setup_bashrc.sh
 ```
@@ -79,6 +82,22 @@ git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 ```
 
+### tmux
+
+Install the tmux configuration:
+
+```bash
+./tmux/install.sh
+```
+
+The installation creates a symbolic link to `~/.tmux.conf`.
+
+Reload the configuration in an existing tmux session:
+
+```bash
+tmux source-file ~/.tmux.conf
+```
+
 ## Components
 
 ### Bash
@@ -99,6 +118,17 @@ Provides custom GNU Readline settings for Bash and other compatible command-line
 ### Git
 
 Provides a custom global Git configuration.
+
+### tmux
+
+Provides a customized terminal multiplexer configuration, including:
+
+- Vim-style keybindings
+- Custom pane and window navigation
+- Pane splitting and resizing
+- Copy-mode customization
+- Custom status bar appearance
+- Terminal color configuration
 
 ### WSL Integration
 
