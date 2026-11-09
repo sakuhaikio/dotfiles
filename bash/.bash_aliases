@@ -25,3 +25,4 @@ alias cls='clear'
 alias reload='source ~/.bashrc'
 
 alias t='tmux new -As'
+alias tmuxconf='vim ~/.tmux.conf'
